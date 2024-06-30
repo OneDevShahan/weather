@@ -5,8 +5,8 @@ import { IoSunnyOutline } from "react-icons/io5";
 import { WiNightSleetStorm } from "react-icons/wi";
 
 function Header({ toggleDarkMode, isDarkMode }) {
-  const navDialog = document.getElementById("nav-dialog");
   const handleClick = () => {
+    const navDialog = document.getElementById("nav-dialog");
     navDialog.classList.toggle("hidden");
   };
 

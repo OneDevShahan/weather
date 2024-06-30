@@ -103,7 +103,7 @@ const Weather = () => {
                 //icon="🌬️"
               />
               <WeatherCard
-                name="Feels like"
+                name="Feels"
                 value={`${Math.round(weather.main.feels_like)} °C`}
                 icon=""
                 // icon="🌡️"
