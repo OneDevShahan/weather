@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Weather from './components/Weather';
+import Footer from './components/Footer';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -20,7 +21,10 @@ function App() {
   return (
     <div className=" dark:bg-gray-900 min-h-screen">
       <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
-        <Weather/>
+      {/* <hr/> */}
+      <Weather />
+      <hr/>
+      <Footer/>
     </div>
   );
 }

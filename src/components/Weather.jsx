@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { convertUnixTimeStampToLocalTime, iconUrlFromCode } from "./Util";
+import {
+  Cities,
+  convertUnixTimeStampToLocalTime,
+  iconUrlFromCode,
+} from "./Util";
 import WeatherCard from "./WeatherCard";
 
 const Weather = () => {
@@ -8,7 +12,6 @@ const Weather = () => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
   const apiKey = "f9ff7ad4a6c4c0ca4155b5fda8bd0e22";
-  const predefinedCities = ["Delhi", "Kolkata", "Chennai", "Kerala", "Gujrat"];
 
   const fetchWeather = async (cityName) => {
     try {
@@ -45,15 +48,20 @@ const Weather = () => {
       setError("Please enter only alphabetic characters.");
     }
   };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r from-blue-500 to-purple-500">
       <div className="flex justify-around mb-4">
-        {predefinedCities.map((cityName) => (
+        {Cities.map((cityName) => (
           <button
             key={cityName}
             onClick={() => fetchWeather(cityName)}
-            className="text-black text-xl dark:text-white px-4 py-2 rounded hover:bg-gradient-to-r from-purple-500 to-blue-500 transition duration-300"
+            className="text-black text-xl px-2 dark:text-white md:px-4  hover:scale-110 ease-in-out"
           >
             {cityName}
           </button>
@@ -64,8 +72,9 @@ const Weather = () => {
           type="text"
           placeholder="Enter city"
           value={city}
+          onKeyPress={handleKeyPress}
           onChange={handleInputChange}
-          className="p-2 dark:text-white bg-blue-600 border border-purple-500 rounded mb-2 md:w-full max-w-lg"
+          className="p-2 dark:text-white bg-blue-600 border border-purple-500 rounded mb-2 md:w-full max-w-lg hover:scale-110 ease-in-out duration-500"
         />
         <button
           onClick={handleSearch}
@@ -77,10 +86,11 @@ const Weather = () => {
       </div>
       {weather && (
         <div className="text-center dark:text-white">
-          <div className="text-xl font-semibold">
-            {weather.name}{" "}
+          <div className="flex justify-evenly items-center font-semibold">
+            <p className="text-xl">{weather.name} </p>
             <span className="font-medium">
-              {Math.round(weather.main.temp)} °C
+              {" "}
+              {Math.round(weather.main.temp)}°C
             </span>
             <img
               className="w-12 inline-block"
@@ -89,7 +99,7 @@ const Weather = () => {
             />
           </div>
           <div className="m-3">
-            <div className="grid grid-cols-4 gap-4 mt-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
               <WeatherCard
                 name="Wind"
                 value={`${weather.wind.speed} km/h`}

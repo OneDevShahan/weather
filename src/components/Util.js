@@ -10,10 +10,11 @@ export const convertUnixTimeStampToLocalTime = (timestamp) => {
 
     // Format time into AM/PM format
     const sunriseTime = sunriseDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    console.log('Sunrise:', sunriseTime); // Example output: "6:18 AM"
+     // Example output: "6:18 AM"
     return sunriseTime;
-
     // in-short
     //const date = new Date(timestamp * 1000);
     //return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 }
+
+export const Cities = ["Delhi", "Kolkata", "Chennai", "Kochi", "Gujrat"];
