@@ -2,6 +2,7 @@ import { MdMenu } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { FaSun } from "react-icons/fa";
 import { IoSunnyOutline } from "react-icons/io5";
+import { WiNightSleetStorm } from "react-icons/wi";
 
 function Header({ toggleDarkMode, isDarkMode }) {
   const navDialog = document.getElementById("nav-dialog");
@@ -10,23 +11,35 @@ function Header({ toggleDarkMode, isDarkMode }) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 dark:text-white">
+    <div className="bg-gradient-to-r from-blue-500 to-purple-500 dark:bg-gray-900 dark:text-white">
       <nav className="p-3 flex justify-between items-center">
-        <a href="#" className="text-4xl cursor-pointer">
-          YOUR_PROJECT_NAME
+        <a href="#" className="text-4xl cursor-pointer hover:scale-110">
+          <WiNightSleetStorm size={50} />
         </a>
         <div className="hidden md:flex gap-12">
-          <a href="#" className="font-medium hover:text-gray-500">
+          <a
+            href="#"
+            className="text-xl font-semibold p-3 hover:scale-110 ease-in-out"
+          >
             About
           </a>
-          <a href="#" className="font-medium hover:text-gray-500">
+          <a
+            href="#"
+            className="text-xl font-semibold p-3 hover:scale-110 ease-in-out"
+          >
             Contact
           </a>
-          <a href="#" className="font-medium hover:text-gray-500">
+          <a
+            href="#"
+            className="text-xl font-semibold p-3 hover:scale-110 ease-in-out"
+          >
             Sign In
           </a>
         </div>
-        <button className="hidden md:flex gap-3 p-2" onClick={toggleDarkMode}>
+        <button
+          className="hidden md:flex gap-3 p-2 hover:scale-110"
+          onClick={toggleDarkMode}
+        >
           {isDarkMode ? <IoSunnyOutline size={20} /> : <FaSun size={20} />}
         </button>
         <button className="p-2 md:hidden" onClick={handleClick}>
