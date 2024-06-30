@@ -47,11 +47,11 @@ function Header({ toggleDarkMode, isDarkMode }) {
         </button>
         <div
           id="nav-dialog"
-          className="md:hidden fixed p-3 inset-0 bg-white dark:bg-gray-900 "
+          className="md:hidden fixed p-3 inset-0 bg-gradient-to-r from-blue-500 to-purple-500 dark:text-white "
         >
           <div className="flex justify-between">
             <a href="#" className="text-4xl cursor-pointer">
-              Regex Gen
+              <WiNightSleetStorm size={50} />
             </a>
             <button className="p-2 md:hidden" onClick={handleClick}>
               <IoClose className="cursor-pointer" />
@@ -60,24 +60,24 @@ function Header({ toggleDarkMode, isDarkMode }) {
           <div className="flex flex-col mt-6">
             <a
               href="#"
-              className="m-2 p-2 font-medium block hover:bg-gray-800 rounded-lg"
+              className="m-2 p-2 font-medium p-3 hover:scale-110 ease-in-out"
             >
               About
             </a>
             <a
               href="#"
-              className="m-2 p-2 font-medium block hover:bg-gray-800 rounded-lg"
+              className="m-2 p-2 font-medium p-3 hover:scale-110 ease-in-out"
             >
               Contact
             </a>
             <a
               href="#"
-              className="m-2 p-2 font-medium block hover:bg-gray-800 rounded-lg"
+              className="m-2 p-2 font-medium p-3 hover:scale-110 ease-in-out"
             >
               Sign In
             </a>
           </div>
-          <div className="mt-6 h-[1px] bg-red-900"></div>
+          <div className="mt-6 h-[1px] bg-purple-600"></div>
           <button className="m-4" onClick={toggleDarkMode}>
             {isDarkMode ? <IoSunnyOutline size={20} /> : <FaSun size={20} />}
           </button>

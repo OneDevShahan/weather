@@ -6,27 +6,45 @@ import WeatherCard from "./WeatherCard";
 const Weather = () => {
   const [city, setCity] = useState("Hyderabad");
   const [weather, setWeather] = useState(null);
+  const [error, setError] = useState("");
   const apiKey = "f9ff7ad4a6c4c0ca4155b5fda8bd0e22";
+  const predefinedCities = ["Delhi", "Kolkata", "Chennai", "Kerala", "Gujrat"];
+
   const fetchWeather = async (cityName) => {
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`
       );
       setWeather(response.data);
+      setError("");
     } catch (error) {
       console.error(error);
+      setError("City not found. Please try again.");
     }
   };
 
   useEffect(() => {
     fetchWeather(city);
-  }, [city]);
+  }, []);
 
   const handleSearch = () => {
-    fetchWeather(city);
+    if (!city || city.trim() === "") {
+      setError("Please enter a city.");
+    } else {
+      fetchWeather(city);
+    }
   };
 
-  const predefinedCities = ["Delhi", "Kolkata", "Chennai", "Kerala", "Gujrat"];
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    // Validate input using regex to allow only alphabetic characters
+    if (/^[A-Za-z]+$/.test(inputValue) || inputValue === "") {
+      setCity(inputValue);
+      setError(""); // Clear error when input is valid
+    } else {
+      setError("Please enter only alphabetic characters.");
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-r from-blue-500 to-purple-500">
@@ -35,7 +53,7 @@ const Weather = () => {
           <button
             key={cityName}
             onClick={() => fetchWeather(cityName)}
-            className="text-black dark:text-white px-4 py-2 rounded hover:bg-gradient-to-r from-purple-500 to-blue-500 transition duration-300"
+            className="text-black text-xl dark:text-white px-4 py-2 rounded hover:bg-gradient-to-r from-purple-500 to-blue-500 transition duration-300"
           >
             {cityName}
           </button>
@@ -46,15 +64,16 @@ const Weather = () => {
           type="text"
           placeholder="Enter city"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={handleInputChange}
           className="p-2 dark:text-white bg-blue-600 border border-purple-500 rounded mb-2 md:w-full max-w-lg"
         />
         <button
           onClick={handleSearch}
           className="border border-purple-500 shadow-2xl hover:bg-gradient-to-r from-purple-500 to-blue-600 dark:text-white p-2 rounded md:w-full max-w-lg"
         >
-          Get Weather
+          Check
         </button>
+        {error && <p className="text-red-900 mt-2">{error}</p>}
       </div>
       {weather && (
         <div className="text-center dark:text-white">
