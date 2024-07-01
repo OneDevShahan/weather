@@ -23,7 +23,7 @@ function App() {
       <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       {/* <hr/> */}
       <Weather />
-      <hr/>
+      {/* <hr/> */}
       <Footer/>
     </div>
   );

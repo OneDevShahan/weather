@@ -1,19 +1,19 @@
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-blue-500 to-purple-500 dark:text-white py-9">
+    <footer className="bg-gradient-to-r from-blue-500 to-purple-500 dark:text-white px-6 pt-6">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between">
-          <div className="w-full sm:w-1/3 mb-4">
+        <div className="flex flex-wrap justify-between mb-3">
+          <div className="w-full sm:w-1/3">
             <h3 className="text-xl font-bold mb-2">About Us</h3>
-            <p>
+            <p className="text-sm pb-4">
               We provide accurate and reliable weather information to help you
               plan your day. Stay updated with the latest weather forecasts and
               alerts.
             </p>
           </div>
-          <div className="w-full sm:w-1/3 mb-4">
+          <div className="w-full sm:w-1/3 ">
             <h3 className="text-xl font-bold mb-2">Quick Links</h3>
-            <ul>
+            <ul className="text-sm pb-4">
               <li>
                 <a
                   href="#"
@@ -48,10 +48,10 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="w-full sm:w-1/3 mb-4">
+          <div className="w-full sm:w-1/3 ">
             <h3 className="text-xl font-bold mb-2">Contact Us</h3>
-            <p>Email: onedevshahan@gmail.com</p>
-            <p>Phone: +91 1234567890</p>
+            <p className="text-sm">Email: onedevshahan@gmail.com</p>
+            <p className="text-sm pb-4">Phone: +91 1234567890</p>
             <div className="flex mt-2">
               <a
                 href="#"
@@ -80,11 +80,16 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="text-center mt-6">
+        {/* <div className="text-center mt-2">
           <p>
             &copy; {new Date().getFullYear()} WeatherApp. All rights reserved.
           </p>
-        </div>
+        </div> */}
+      </div>
+      <div className="text-center py-2">
+        <p>
+          &copy; {new Date().getFullYear()} WeatherApp. All rights reserved.
+        </p>
       </div>
     </footer>
   );

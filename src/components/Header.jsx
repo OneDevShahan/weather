@@ -11,27 +11,27 @@ function Header({ toggleDarkMode, isDarkMode }) {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-purple-500 dark:bg-gray-900 dark:text-white">
-      <nav className="p-3 flex justify-between items-center">
+    <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 dark:bg-gray-900 dark:text-white">
+      <nav className="flex justify-between items-center">
         <a href="#" className="text-4xl cursor-pointer hover:scale-110">
           <WiNightSleetStorm size={50} />
         </a>
         <div className="hidden md:flex gap-12">
           <a
             href="#"
-            className="text-xl font-semibold p-3 hover:scale-110 ease-in-out"
+            className="font-medium text-xl p-2 hover:scale-110 ease-in-out"
           >
             About
           </a>
           <a
             href="#"
-            className="text-xl font-semibold p-3 hover:scale-110 ease-in-out"
+            className="font-medium text-xl p-2 hover:scale-110 ease-in-out"
           >
             Contact
           </a>
           <a
             href="#"
-            className="text-xl font-semibold p-3 hover:scale-110 ease-in-out"
+            className="font-medium text-xl p-2 hover:scale-110 ease-in-out"
           >
             Sign In
           </a>
