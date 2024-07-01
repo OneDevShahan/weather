@@ -47,7 +47,7 @@ function Header({ toggleDarkMode, isDarkMode }) {
         </button>
         <div
           id="nav-dialog"
-          className="md:hidden fixed p-3 inset-0 bg-gradient-to-r from-blue-500 to-purple-500 dark:text-white "
+          className="hidden fixed p-3 md:hidden z-10 inset-0 bg-gradient-to-r from-blue-500 to-purple-500 dark:text-white "
         >
           <div className="flex justify-between">
             <a href="#" className="text-4xl cursor-pointer">
