@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaSearchLocation } from "react-icons/fa";
 import {
   Cities,
+  GetColorGradient,
   convertUnixTimeStampToLocalTime,
   iconUrlFromCode,
 } from "./Util";
@@ -29,7 +30,7 @@ const Weather = () => {
 
   useEffect(() => {
     fetchWeather(city);
-  }, []);
+  }, [city]);
 
   const handleSearch = () => {
     if (!city || city.trim() === "") {
@@ -56,7 +57,13 @@ const Weather = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-500">
+    <div
+      className={`flex flex-col items-center justify-center h-screen ${
+        weather
+          ? GetColorGradient(weather.weather[0].main)
+          : "bg-gradient-to-r from-blue-500 to-purple-500"
+      }`}
+    >
       <div className="flex justify-center w-1/3">
         {Cities.map((cityName) => (
           <button

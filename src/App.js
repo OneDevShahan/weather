@@ -19,7 +19,7 @@ function App() {
   };
 
   return (
-    <div className=" dark:bg-gray-900 min-h-screen">
+    <div className="dark:bg-gray-900 min-h-screen">
       <Header toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       {/* <hr/> */}
       <Weather />
