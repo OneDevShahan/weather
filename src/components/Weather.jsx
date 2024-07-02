@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaSearchLocation } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { IoSearchSharp } from "react-icons/io5";
 import {
   Cities,
+  apiKey,
   convertUnixTimeStampToLocalTime,
   iconUrlFromCode,
 } from "./Util";
 import WeatherCard from "./WeatherCard";
+import { fetchWeatherByCoordinates } from "../services/Service";
 
 const Weather = () => {
   const [city, setCity] = useState("Hyderabad");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
-  const apiKey = "f9ff7ad4a6c4c0ca4155b5fda8bd0e22";
 
   const fetchWeather = async (cityName) => {
     try {
@@ -29,7 +31,7 @@ const Weather = () => {
 
   useEffect(() => {
     fetchWeather(city);
-  }, []);
+  }, [city]);
 
   const handleSearch = () => {
     if (!city || city.trim() === "") {
@@ -52,6 +54,33 @@ const Weather = () => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSearch();
+    }
+  };
+
+  const getCurrentLocation = () => {
+    if (!apiKey) {
+      setError("Please enter an API key.");
+      return;
+    }
+
+    if (navigator.geolocation) {
+      setError("");
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeatherByCoordinates(latitude, longitude, apiKey).then((data) =>
+            setWeather(data)
+          );
+        },
+        (error) => {
+          console.error(error);
+          setError(
+            "Unable to retrieve your location. Please check your location settings."
+          );
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser.");
     }
   };
 
@@ -78,7 +107,14 @@ const Weather = () => {
           className="p-2 m-2 dark:text-white bg-blue-600 border-none  rounded md:w-full max-w-lg hover:scale-105 ease-in-out duration-500"
         />
         <div className="cursor-pointer dark:text-white hover:scale-110 ease-in-out duration-200 p-2">
-          <FaSearchLocation onClick={handleSearch} size={25} />
+          <IoSearchSharp onClick={handleSearch} size={25} />
+        </div>
+        <div>
+          <IoLocationOutline
+            size={42}
+            onClick={getCurrentLocation}
+            className="cursor-pointer dark:text-white hover:scale-110 ease-in-out duration-200 p-2"
+          />
         </div>
       </div>
       <div>
@@ -93,9 +129,10 @@ const Weather = () => {
               {Math.round(weather.main.temp)}°C
             </span>
             <img
-              className="w-12 inline-block"
+              className="w-12 inline-block cursor-pointer"
               src={iconUrlFromCode(weather.weather[0].icon)}
               alt="icon"
+              title={weather.weather[0].main}
             />
           </div>
           <div className="m-3">

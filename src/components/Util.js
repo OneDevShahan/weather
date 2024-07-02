@@ -18,3 +18,4 @@ export const convertUnixTimeStampToLocalTime = (timestamp) => {
 }
 
 export const Cities = ["Delhi", "Kolkata", "Chennai", "Kochi", "Gujrat"];
+export const apiKey = "f9ff7ad4a6c4c0ca4155b5fda8bd0e22";
