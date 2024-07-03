@@ -4,16 +4,23 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IoSearchSharp } from "react-icons/io5";
 import {
   Cities,
+  GetColorGradient,
   apiKey,
   convertUnixTimeStampToLocalTime,
   iconUrlFromCode,
 } from "./Util";
 import WeatherCard from "./WeatherCard";
-import { fetchWeatherByCoordinates } from "../services/Service";
+import {
+  fetchWeatherByCity,
+  fetchWeatherByCoordinates,
+  fetchWeeklyForecast,
+} from "../services/Service";
+import WeeklyForecast from "./WeeklyForecast";
 
 const Weather = () => {
   const [city, setCity] = useState("Hyderabad");
   const [weather, setWeather] = useState(null);
+  const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState("");
 
   const fetchWeather = async (cityName) => {
@@ -33,11 +40,19 @@ const Weather = () => {
     fetchWeather(city);
   }, [city]);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!city || city.trim() === "") {
       setError("Please enter a city.");
     } else {
-      fetchWeather(city);
+      const weatherData = await fetchWeatherByCity(city, apiKey);
+      setWeather(weatherData);
+      //   const forecastData = await fetchWeeklyForecast(
+      //     weatherData.coord.lat,
+      //     weatherData.coord.lon,
+      //     apiKey
+      //   );
+      //   setWeeklyForecast(forecastData);
+      setError("");
     }
   };
 
@@ -66,11 +81,26 @@ const Weather = () => {
     if (navigator.geolocation) {
       setError("");
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
-          fetchWeatherByCoordinates(latitude, longitude, apiKey).then((data) =>
-            setWeather(data)
-          );
+          try {
+            const weatherData = await fetchWeatherByCoordinates(
+              latitude,
+              longitude,
+              apiKey
+            );
+            setWeather(weatherData);
+            // const forecastData = await fetchWeeklyForecast(
+            //   latitude,
+            //   longitude,
+            //   apiKey
+            // );
+            // console.log("7 Days", forecastData);
+            // setWeeklyForecast(forecastData);
+            setError("");
+          } catch (err) {
+            setError(err.message);
+          }
         },
         (error) => {
           console.error(error);
@@ -85,7 +115,13 @@ const Weather = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-500">
+    <div
+      className={`flex flex-col items-center justify-center h-screen ${
+        weather
+          ? GetColorGradient(weather.weather[0].main)
+          : "bg-gradient-to-r from-blue-500 to-purple-500"
+      }`}
+    >
       <div className="flex justify-center w-1/3">
         {Cities.map((cityName) => (
           <button
@@ -190,6 +226,9 @@ const Weather = () => {
             </div>
           </div>
         </div>
+      )}
+      {weeklyForecast.length > 0 && (
+        <WeeklyForecast forecast={weeklyForecast} />
       )}
     </div>
   );
