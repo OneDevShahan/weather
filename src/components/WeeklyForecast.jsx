@@ -2,7 +2,7 @@ import React from "react";
 
 const WeeklyForecast = ({ forecast }) => {
   return (
-    <div className="mt-6">
+    <div name="weeklyForecast" className="mt-6">
       <h2 className="text-xl font-bold text-center mb-4 text-white">
         7-Day Forecast
       </h2>

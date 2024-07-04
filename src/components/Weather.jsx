@@ -116,6 +116,7 @@ const Weather = () => {
 
   return (
     <div
+      name="weather"
       className={`flex flex-col items-center justify-center h-screen ${
         weather
           ? GetColorGradient(weather.weather[0].main)
@@ -158,12 +159,9 @@ const Weather = () => {
       </div>
       {weather && (
         <div className="w-full md:w-2/3 dark:text-white">
-          <div className="flex justify-evenly items-center font-semibold">
-            <p className="text-xl pt-4">{weather.name} </p>
-            <span className="font-medium">
-              {" "}
-              {Math.round(weather.main.temp)}°C
-            </span>
+          <div className="flex justify-evenly items-center font-bold">
+            <p className="text-xl">{weather.name} </p>
+            <span> {Math.round(weather.main.temp)}°C</span>
             <img
               className="w-12 inline-block cursor-pointer"
               src={iconUrlFromCode(weather.weather[0].icon)}
