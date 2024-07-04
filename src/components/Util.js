@@ -1,3 +1,13 @@
+import { MdOutlineWindPower } from "react-icons/md";
+import { WiHumidity } from "react-icons/wi";
+import { GiSunset } from "react-icons/gi";
+import { GiSunrise } from "react-icons/gi";
+import { FaTemperatureLow } from "react-icons/fa";
+import { FaTemperatureHigh } from "react-icons/fa";
+import { FaCompressArrowsAlt } from "react-icons/fa";
+
+
+
 export const iconUrlFromCode = (code) =>
     `http://openweathermap.org/img/wn/${code}@2x.png`;
 
@@ -38,4 +48,25 @@ export const GetColorGradient = (weather) => {
       default:
         return 'bg-gradient-to-r from-blue-500 to-purple-500';
     }
-  };
+};
+  
+export const getWeatherCardIcon = (iconForAttribute) => {
+    switch (iconForAttribute) {
+      case 'Wind':
+        return <MdOutlineWindPower />;
+      case 'Humidity':
+        return <WiHumidity />;
+        case 'Sunset':
+            return <GiSunset />; 
+        case 'Sunrise':
+            return <GiSunrise />; 
+        case 'Min':
+            return <FaTemperatureLow />; 
+        case 'Max':
+            return <FaTemperatureHigh />; 
+        case 'Pressure':
+            return <FaCompressArrowsAlt />; 
+      default:
+        return <MdOutlineWindPower />;
+    }
+}
