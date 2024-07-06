@@ -32,7 +32,7 @@ export const convertUnixTimeStampToLocalTime = (timestamp) => {
   //return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 };
 
-export const Cities = ["Delhi", "Kolkata", "Chennai", "Kochi", "Gujrat"];
+export const Cities = ["Delhi", "Kolkata", "Chennai", "Kochi", "Ahmadabad"];
 export const apiKey = "f9ff7ad4a6c4c0ca4155b5fda8bd0e22";
 export const GetColorGradient = (weather) => {
   switch (weather) {
@@ -52,6 +52,29 @@ export const GetColorGradient = (weather) => {
       return "bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400";
     default:
       return "bg-gradient-to-r from-blue-500 to-purple-500";
+  }
+};
+
+export const GetColorGradientForWeatherCards = (weather) => {
+  switch (weather) {
+    case "Rain":
+      return "bg-gradient-to-r from-blue-500 to-blue-600";
+    case "Clear":
+      return "bg-gradient-to-r from-yellow-300 to-orange-500";
+    case "Snow":
+      return "bg-gradient-to-r from-blue-200 to-blue-400";
+    case "Clouds":
+      return "bg-gradient-to-r from-gray-400 to-gray-600";
+    case "Drizzle":
+      return "bg-gradient-to-r from-blue-500 to-blue-800";
+    case "Thunderstorm":
+      return "bg-gradient-to-r from-purple-500 to-purple-800";
+    case "Mist":
+      return "bg-gradient-to-r from-sky-500 to-blue-400";
+    case "Haze":
+      return "bg-gradient-to-r from-fuchsia-400 to-pink-500";
+    default:
+      return "bg-gradient-to-r from-green-300 to-green-500";
   }
 };
 
@@ -77,3 +100,13 @@ export const getWeatherCardIcon = (iconForAttribute) => {
       return <TiWeatherWindyCloudy />;
   }
 };
+
+export function convertLatAndLongFromDDToDMS(latOrLong) {
+  const degree = Math.floor(latOrLong);
+  const minutesFloat = (latOrLong - degree) * 60;
+  const minutes = Math.floor(minutesFloat);
+  const secondFloat = (minutesFloat - minutes) * 60;
+  const seconds = Math.round(secondFloat);
+  // Output: 34° 3' 8"
+  return `${degree}° ${minutes}' ${seconds}"`;
+}

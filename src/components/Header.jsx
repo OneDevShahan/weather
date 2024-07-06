@@ -17,7 +17,7 @@ function Header({ toggleDarkMode, isDarkMode }) {
       className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 dark:bg-gray-900 dark:text-white"
     >
       <nav className="flex justify-between items-center">
-        <Link className="text-4xl cursor-pointer hover:scale-110">
+        <Link to="weather" className="text-4xl cursor-pointer hover:scale-110">
           <WiNightSleetStorm size={50} />
         </Link>
         <div className="hidden md:flex gap-12">

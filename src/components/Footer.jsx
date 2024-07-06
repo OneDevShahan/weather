@@ -35,7 +35,7 @@ const Footer = () => {
                 <Link
                   to="weather"
                   smooth={true}
-                  className="cursor-pointer hover:text-gray-400 transition duration-300"
+                  className="cursor-pointer hover:scale-110 transition duration-300"
                 >
                   Home
                 </Link>
