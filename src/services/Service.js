@@ -39,20 +39,31 @@ export const fetchWeatherByCity = async (cityName) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error("City not found. Please try again.");
+    return "City not found. Please try again.";
   }
 };
 
 //`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API key}`
-export const fetchWeeklyForecast = async (latitude, longitude, apiKey) => {
+export const fetchWeeklyForecast = async (cityNameOrLatAndLon) => {
+  let url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&cnt=7&units=metric`;
+  if (typeof cityNameOrLatAndLon === "string") {
+    url += `&q=${cityNameOrLatAndLon}`;
+  } else {
+    const { lat, lon } = cityNameOrLatAndLon;
+    url += `&lat=${lat}&lon=${lon}`;
+  }
+
   try {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=metric`
-    );
-    return response.data.daily;
+    const response = await axios.get(url);
+    return response.data.list;
   } catch (error) {
-    console.error(error);
-    throw new Error("Unable to fetch weekly forecast. Please try again.");
+    if (error.response && error.response.status === 404) {
+      throw new Error("City not found");
+    } else {
+      throw new Error("Failed to fetch forecast data");
+    }
+    //console.error(error);
+    //return "Unable to fetch weekly forecast. Please try again.";
   }
 };
 
@@ -64,6 +75,6 @@ export const fetchLatLongByCityName = async (city) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error("Unable to fetch Lat-Log details. Please try again.");
+    return "Unable to fetch Lat-Log details. Please try again.";
   }
 };

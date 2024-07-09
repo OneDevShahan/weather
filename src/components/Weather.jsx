@@ -5,6 +5,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import {
   Cities,
   GetColorGradient,
+  GetColorGradientForWeatherCards,
   apiKey,
   convertLatAndLongFromDDToDMS,
   convertUnixTimeStampToLocalTime,
@@ -26,8 +27,8 @@ const Weather = () => {
   const [weather, setWeather] = useState(null);
   const [weeklyForecast, setWeeklyForecast] = useState([]);
   const [error, setError] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
   const fetchWeather = async (cityName) => {
     setLoading(true);
@@ -47,6 +48,14 @@ const Weather = () => {
 
   useEffect(() => {
     fetchWeather(city);
+    fetchWeeklyForecast(city)
+      .then((data) => {
+        setWeeklyForecast(data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+
     fetchLatLongByCityName(city)
       .then((data) => {
         setLatitude(data[0].lat);
@@ -164,7 +173,7 @@ const Weather = () => {
   return (
     <div
       name="weather"
-      className={`flex flex-col items-center justify-center h-screen ${
+      className={`flex flex-col items-center justify-center py-8 ${
         weather
           ? GetColorGradient(weather.weather[0].main)
           : "bg-gradient-to-r from-blue-500 to-purple-500"
@@ -190,7 +199,12 @@ const Weather = () => {
           value={city}
           onKeyDown={handleOnKeyDown}
           onChange={handleInputChange}
-          className="p-2 m-2 dark:text-white bg-blue-600 border-none  rounded md:w-full max-w-lg hover:scale-105 ease-in-out duration-500"
+          className={`p-2 m-2 dark:text-white border-none  rounded md:w-full max-w-lg hover:scale-105 ease-in-out duration-500 ${
+            weather
+              ? GetColorGradientForWeatherCards(weather.weather[0].main)
+              : "bg-gradient-to-r from-blue-500 to-purple-500"
+          }`}
+          //className="p-2 m-2 dark:text-white bg-blue-600 border-none  rounded md:w-full max-w-lg hover:scale-105 ease-in-out duration-500"
         />
         <div className="cursor-pointer dark:text-white hover:scale-110 ease-in-out duration-200 p-2">
           <IoSearchSharp onClick={handleSearch} size={25} />
@@ -298,7 +312,9 @@ const Weather = () => {
               </div>
             </div>
           )}
-          {weeklyForecast > 0 && <WeeklyForecast forecast={weeklyForecast} />}
+          <div>
+            {weeklyForecast && <WeeklyForecast forecast={weeklyForecast} />}
+          </div>
         </>
       )}
     </div>
