@@ -32,6 +32,19 @@ export const convertUnixTimeStampToLocalTime = (timestamp) => {
   //return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 };
 
+export const GetDayFromUTC = (dt, index) => {
+  const date = new Date();
+  date.setDate(date.getDate() + index); // Increment the date by the index
+  const day = date.toLocaleDateString("en-US", { weekday: "long" });
+  const dayNumber = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const formattedDate = `${dayNumber}/${month}`;
+  if (index === 0) {
+    return { day: `Today`, formattedDate };
+  }
+  return { day, formattedDate }; // e.g., Monday 01/07
+};
+
 export const Cities = ["Delhi", "Kolkata", "Chennai", "Kochi", "Ahmadabad"];
 export const apiKey = "f9ff7ad4a6c4c0ca4155b5fda8bd0e22";
 export const GetColorGradient = (weather) => {
@@ -110,3 +123,7 @@ export function convertLatAndLongFromDDToDMS(latOrLong) {
   // Output: 34° 3' 8"
   return `${degree}° ${minutes}' ${seconds}"`;
 }
+
+export const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};

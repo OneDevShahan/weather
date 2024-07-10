@@ -26,3 +26,11 @@
 - 🚀: Added weekly forecast functionality.
 - 💻: Fixes none.
 - ☕️: Summary
+
+## Date 10/07/2024 
+### Version: 1.0.4
+- 🚀: Added weekly forecast functionality with all the default, search and by current location features.
+- 🚀: Added the background color gradient to weekly forecast date.
+- 🚀: Added day name and date to the weekly forecast.
+- 💻: Fixed date issue in weekly forecast.
+- ☕️: Summary

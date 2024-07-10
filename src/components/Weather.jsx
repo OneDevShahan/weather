@@ -74,16 +74,12 @@ const Weather = () => {
     } else {
       const weatherData = await fetchWeatherByCity(city);
       const latLonData = await fetchLatLongByCityName(city);
+      const foreCastData = await fetchWeeklyForecast(city);
       setWeather(weatherData);
       setLatitude(latLonData[0].lat);
       setLongitude(latLonData[0].lon);
       setLoading(false);
-      // const forecastData = await fetchWeeklyForecast(
-      //   weatherData.coord.lat,
-      //   weatherData.coord.lon,
-      //   apiKey
-      // );
-      // setWeeklyForecast(forecastData);
+      setWeeklyForecast(foreCastData);
       setError("");
     }
   };
@@ -125,14 +121,9 @@ const Weather = () => {
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
             setWeather(weatherData);
+            const foreCastData = await fetchWeeklyForecast(city);
+            setWeeklyForecast(foreCastData);
             setLoading(false);
-            // const forecastData = await fetchWeeklyForecast(
-            //   latitude,
-            //   longitude,
-            //   apiKey
-            // );
-            // console.log("7 Days", forecastData);
-            // setWeeklyForecast(forecastData);
             setError("");
           } catch (err) {
             setError(err.message);
@@ -156,13 +147,16 @@ const Weather = () => {
   const fetchLatAndLonWithCityDefaultName = async (cityOrLatLon) => {
     setLoading(true);
     try {
-      const [weatherData, latitudeAndLongitudeData] = await Promise.all([
-        fetchWeatherByCity(cityOrLatLon),
-        fetchLatLongByCityName(cityOrLatLon),
-      ]);
+      const [weatherData, latitudeAndLongitudeData, weeklyForecastData] =
+        await Promise.all([
+          fetchWeatherByCity(cityOrLatLon),
+          fetchLatLongByCityName(cityOrLatLon),
+          fetchWeeklyForecast(cityOrLatLon),
+        ]);
       setWeather(weatherData);
       setLatitude(latitudeAndLongitudeData[0].lat);
       setLongitude(latitudeAndLongitudeData[0].lon);
+      setWeeklyForecast(weeklyForecastData);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -313,7 +307,12 @@ const Weather = () => {
             </div>
           )}
           <div>
-            {weeklyForecast && <WeeklyForecast forecast={weeklyForecast} />}
+            {weeklyForecast && (
+              <WeeklyForecast
+                forecast={weeklyForecast}
+                city={weather ? weather.name : ""}
+              />
+            )}
           </div>
         </>
       )}

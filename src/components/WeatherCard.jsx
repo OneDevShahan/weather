@@ -5,7 +5,6 @@ const WeatherCard = ({ name, value, weather, icon }) => {
   return (
     <div
       name="weatherCard"
-      //className="bg-gradient-to-r from-blue-500 to-purple-500 shadow-md rounded-lg p-3 md:p-2 flex flex-col items-center justify-center"
       className={`shadow-md rounded-lg p-3 md:p-2 flex flex-col items-center justify-center ${
         weather
           ? GetColorGradientForWeatherCards(weather)
