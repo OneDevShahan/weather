@@ -25,7 +25,7 @@ const Weather = () => {
   const [loading, setLoading] = useState(false);
   const [city, setCity] = useState("Hyderabad");
   const [weather, setWeather] = useState(null);
-  const [weeklyForecast, setWeeklyForecast] = useState([]);
+  const [weeklyForecast, setWeeklyForecast] = useState();
   const [error, setError] = useState("");
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
@@ -307,12 +307,7 @@ const Weather = () => {
             </div>
           )}
           <div>
-            {weeklyForecast && (
-              <WeeklyForecast
-                forecast={weeklyForecast}
-                city={weather ? weather.name : ""}
-              />
-            )}
+            {weeklyForecast && <WeeklyForecast forecast={weeklyForecast} />}
           </div>
         </>
       )}

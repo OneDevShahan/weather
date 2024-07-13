@@ -34,3 +34,9 @@
 - 🚀: Added day name and date to the weekly forecast.
 - 💻: Fixed date issue in weekly forecast.
 - ☕️: Summary
+
+## Date 13/07/2024 
+### Version: 1.0.5
+- 🚀: Added 8-day forecast functionality.
+- 💻: Fixing is in progress for data display in mobile devices for 8-day forecast.
+- ☕️: Summary

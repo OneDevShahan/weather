@@ -45,7 +45,7 @@ export const fetchWeatherByCity = async (cityName) => {
 
 //`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API key}`
 export const fetchWeeklyForecast = async (cityNameOrLatAndLon) => {
-  let url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&cnt=7&units=metric`;
+  let url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&cnt=8&units=metric`;
   if (typeof cityNameOrLatAndLon === "string") {
     url += `&q=${cityNameOrLatAndLon}`;
   } else {
@@ -55,7 +55,7 @@ export const fetchWeeklyForecast = async (cityNameOrLatAndLon) => {
 
   try {
     const response = await axios.get(url);
-    return response.data.list;
+    return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
       throw new Error("City not found");

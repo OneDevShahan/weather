@@ -1,7 +1,7 @@
 {
   "homepage": "https://OneDevShahan.github.io/weather",
   "name": "weather",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
