@@ -40,3 +40,8 @@
 - 🚀: Added 8-day forecast functionality.
 - 💻: Fixing is in progress for data display in mobile devices for 8-day forecast.
 - ☕️: Summary
+
+## Date 08/08/2024 
+### Version: 1.0.6
+- 💻: Mobile device having scrollable data for 8-day forecast.
+- ☕️: Summary
